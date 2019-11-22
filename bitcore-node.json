@@ -1,0 +1,34 @@
+{
+  "network": "livenet",
+  "port": 3001,
+  "services": [
+    "bitcoind",
+    "insight-api-zen",
+    "insight-ui-zen",
+    "web"
+  ],
+  "servicesConfig": {
+    "bitcoind": {
+      "connect": [
+        {
+          "rpchost": "zen-bitcore-node",
+          "rpcport": 8231,
+          "rpcuser": "zenuser",
+          "rpcpassword": "passw0rd",
+          "zmqpubrawtx": "tcp://zen-bitcore-node:8331"
+        }
+      ]
+    },
+    "insight-ui-zen": {
+      "routePrefix": "",
+      "apiPrefix": "api"
+    },
+    "insight-api-zen": {
+      "disableRateLimiter": true,
+      "routePrefix": "api"
+    },
+    "web":{
+      "jsonRequestLimit":"500kb"
+    }
+  }
+}
