@@ -1,11 +1,8 @@
-FROM node:erbium-alpine
+FROM node:fermium
 
-MAINTAINER cronic@zensystem.io
-
-RUN echo '@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
-    && apk --no-cache add tini@edgecommunity zeromq-dev git python build-base \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install git libczmq-dev python2.7-dev build-essential \
     && export NODE_ENV=production \
-    && npm install -g ZencashOfficial/bitcore-node-zen --unsafe
+    && npm install -g HorizenOfficial/bitcore-node-zen#$BITCORE_NODE_ZEN_TAG --unsafe
 
 USER node
 
@@ -13,11 +10,9 @@ RUN cd /home/node \
     && export NODE_ENV=production \
     && bitcore-node create zen-explorer \
     && cd zen-explorer \
-    && bitcore-node install ZencashOfficial/insight-ui-zen ZencashOfficial/insight-api-zen
+    && bitcore-node install HorizenOfficial/insight-api-zen#$INSIGHT_API_TAG HorizenOfficial/insight-ui-zen#$INSIGHT_UI_TAG
 
 WORKDIR /home/node/zen-explorer
 
-ENTRYPOINT ["/sbin/tini", "-e 143", "--"]
-
-CMD ["bitcore-node", "start"]
+CMD exec /bin/sh -c "bitcore-node start"
 
