@@ -20,5 +20,5 @@ WORKDIR /home/node/zen-explorer
 
 ENTRYPOINT ["/usr/bin/tini", "-e 143", "--"]
 
-CMD exec /bin/sh -c "bitcore-node start"
+CMD ["bitcore-node", "start"]
 
