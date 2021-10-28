@@ -7,6 +7,10 @@ services:
     container_name: insight-ui-zen
     build:
       context: ./insight-ui
+      args:
+        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG}"
+        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG}"
+        - "INSIGHT_API_TAG=${INSIGHT_API_TAG}"
     depends_on:
       - zen-bitcore-node
     volumes:
