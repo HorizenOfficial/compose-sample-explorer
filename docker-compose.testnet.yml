@@ -38,7 +38,7 @@ services:
     ports:
       - "${ZEN_PORT_TESTNET}:${ZEN_PORT_TESTNET}"
     volumes:
-      - "./zen-bitcore-node-data/testnet3:/mnt/zen"
+      - "./zen-bitcore-node-data:/mnt/zen"
       - "./zcash-params:/mnt/zcash-params"
     environment:
       - "RPC_USER=${ZEN_RPC_USER}"
