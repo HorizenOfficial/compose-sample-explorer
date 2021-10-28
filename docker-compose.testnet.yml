@@ -8,9 +8,9 @@ services:
     build:
       context: ./insight-ui
       args:
-        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG}"
-        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG}"
-        - "INSIGHT_API_TAG=${INSIGHT_API_TAG}"
+        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG_TESTNET}"
+        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG_TESTNET}"
+        - "INSIGHT_API_TAG=${INSIGHT_API_TAG_TESTNET}"
     depends_on:
       - zen-bitcore-node
     volumes:
