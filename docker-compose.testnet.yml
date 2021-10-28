@@ -28,13 +28,13 @@ services:
 
   zen-bitcore-node:
     restart: always
-    image: zencash/zen-node:${ZEN_TAG}
+    image: zencash/zen-node:${ZEN_TAG_TESTNET}
     container_name: zen-bitcore-node
     stop_grace_period: 5m
     ports:
-      - "${ZEN_PORT}:${ZEN_PORT}"
+      - "${ZEN_PORT_TESTNET}:${ZEN_PORT_TESTNET}"
     volumes:
-      - "./zen-bitcore-node-data:/mnt/zen"
+      - "./zen-bitcore-node-data/testnet3:/mnt/zen"
       - "./zcash-params:/mnt/zcash-params"
     environment:
       - "RPC_USER=${ZEN_RPC_USER}"
