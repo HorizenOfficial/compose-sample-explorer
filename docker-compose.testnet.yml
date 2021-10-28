@@ -8,13 +8,13 @@ services:
     build:
       context: ./insight-ui
       args:
-        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG}"
-        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG}"
-        - "INSIGHT_API_TAG=${INSIGHT_API_TAG}"
+        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG_TESTNET}"
+        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG_TESTNET}"
+        - "INSIGHT_API_TAG=${INSIGHT_API_TAG_TESTNET}"
     depends_on:
       - zen-bitcore-node
     volumes:
-      - "./bitcore-node.json:/home/node/zen-explorer/bitcore-node.json"
+      - "./bitcore-node-testnet.json:/home/node/zen-explorer/bitcore-node.json"
     ports:
       - "3001:3001"
     networks:
@@ -32,11 +32,11 @@ services:
 
   zen-bitcore-node:
     restart: always
-    image: zencash/zen-node:${ZEN_TAG}
+    image: zencash/zen-node:${ZEN_TAG_TESTNET}
     container_name: zen-bitcore-node
     stop_grace_period: 5m
     ports:
-      - "${ZEN_PORT}:${ZEN_PORT}"
+      - "${ZEN_PORT_TESTNET}:${ZEN_PORT_TESTNET}"
     volumes:
       - "./zen-bitcore-node-data:/mnt/zen"
       - "./zcash-params:/mnt/zcash-params"
@@ -45,9 +45,9 @@ services:
       - "RPC_PASSWORD=${ZEN_RPC_PASSWORD}"
       - "RPC_PORT=${ZEN_RPC_PORT}"
       - "RPC_ALLOWIP_PRESET=${ZEN_RPC_ALLOWIP_PRESET}"
-      - "PORT=${ZEN_PORT}"
+      - "PORT=${ZEN_PORT_TESTNET}"
       - "EXTERNAL_IP=${ZEN_EXTERNAL_IP}"
-      - "OPTS=${ZEN_OPTS}"
+      - "OPTS=${ZEN_OPTS_TESTNET}"
       - "LOCAL_USER_ID=${USER_ID}"
       - "LOCAL_GRP_ID=${GRP_ID}"
       - "LOG=STDOUT"
