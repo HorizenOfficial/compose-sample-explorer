@@ -1,0 +1,66 @@
+version: "3"
+
+services:
+  insight-ui-zen:
+    restart: always
+    image: insight-ui-zen
+    container_name: insight-ui-zen
+    build:
+      context: ./insight-ui
+      args:
+        - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG_REGTEST}"
+        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG_REGTESTT}"
+        - "INSIGHT_API_TAG=${INSIGHT_API_TAG_REGTEST}"
+    depends_on:
+      - zen-bitcore-node
+    volumes:
+      - "./bitcore-node-regtest.json:/home/node/zen-explorer/bitcore-node.json"
+    ports:
+      - "3001:3001"
+    networks:
+      - backend
+    environment:
+      - "NODE_OPTIONS=--max-old-space-size=8192"
+    tmpfs:
+      - /run
+      - /tmp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "512m"
+        max-file: "4"
+
+  zen-bitcore-node:
+    restart: always
+    image: zencash/zen-node:${ZEN_TAG_REGTEST}
+    container_name: zen-bitcore-node
+    stop_grace_period: 5m
+    ports:
+      - "${ZEN_PORT_REGTEST}:${ZEN_PORT_REGTEST}"
+    volumes:
+      - "./zen-bitcore-node-data:/mnt/zen"
+      - "./zcash-params:/mnt/zcash-params"
+    environment:
+      - "RPC_USER=${ZEN_RPC_USER}"
+      - "RPC_PASSWORD=${ZEN_RPC_PASSWORD}"
+      - "RPC_PORT=${ZEN_RPC_PORT}"
+      - "RPC_ALLOWIP_PRESET=${ZEN_RPC_ALLOWIP_PRESET}"
+      - "PORT=${ZEN_PORT_REGTEST}"
+      - "EXTERNAL_IP=${ZEN_EXTERNAL_IP}"
+      - "OPTS=${ZEN_OPTS_REGTEST}"
+      - "LOCAL_USER_ID=${USER_ID}"
+      - "LOCAL_GRP_ID=${GRP_ID}"
+      - "LOG=STDOUT"
+    networks:
+      - backend
+    tmpfs:
+      - /run
+      - /tmp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "512m"
+        max-file: "4"
+
+networks:
+  backend:
