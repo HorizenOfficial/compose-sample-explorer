@@ -9,7 +9,7 @@ services:
       context: ./insight-ui
       args:
         - "BITCORE_NODE_ZEN_TAG=${BITCORE_NODE_ZEN_TAG_REGTEST}"
-        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG_REGTESTT}"
+        - "INSIGHT_UI_TAG=${INSIGHT_UI_TAG_REGTEST}"
         - "INSIGHT_API_TAG=${INSIGHT_API_TAG_REGTEST}"
     depends_on:
       - zen-bitcore-node
